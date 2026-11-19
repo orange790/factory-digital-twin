@@ -20,6 +20,11 @@ npm-debug.log*
 !docs/*.png
 !frontend/public/**/*.png
 
+# ---------------- 发布产物 ----------------
+site/
+.wbapp_*.genie
+.workbuddy/
+
 # ---------------- 编辑器 / 系统 ----------------
 .vscode/
 .idea/
