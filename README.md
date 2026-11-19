@@ -7,6 +7,8 @@
 ![DrawCall](https://img.shields.io/badge/DrawCall-67_%2F_200_设备-3FB950)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
+**▶ [在线演示](https://factory-digital-twin-51346.app.workbuddy.host/?sharecode=CNZTSFNOVW)** — 免安装直接打开，浏览器内模拟 200 台设备实时上报（mock 数据源，不依赖后端）。
+
 > 让三维场景成为**业务数据的一层视图**，而不是静态演示。
 > 完整闭环：设备上报 → 状态渲染 → 告警联动 → 工单闭环 → 数据回流。
 
@@ -68,6 +70,8 @@ smallscalefactory/
 ## 3. 快速开始
 
 ### 3.1 只跑前端（浏览器内模拟数据，30 秒可用）
+
+不想装环境，直接开 **[在线演示](https://factory-digital-twin-51346.app.workbuddy.host/?sharecode=CNZTSFNOVW)**，效果与本节等价。
 
 ```bash
 cd frontend
