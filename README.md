@@ -1,11 +1,26 @@
 # FT-Twin · 小型工厂数字孪生运维平台
 
+![Vue 3](https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white)
+![Three.js](https://img.shields.io/badge/Three.js-r170-000000?logo=threedotjs&logoColor=white)
+![Django REST](https://img.shields.io/badge/Django_REST-3.18-092E20?logo=django&logoColor=white)
+![MQTT](https://img.shields.io/badge/MQTT-EMQX-660066?logo=mqtt&logoColor=white)
+![DrawCall](https://img.shields.io/badge/DrawCall-67_%2F_200_设备-3FB950)
+![License](https://img.shields.io/badge/License-MIT-blue)
+
 > 让三维场景成为**业务数据的一层视图**，而不是静态演示。
 > 完整闭环：设备上报 → 状态渲染 → 告警联动 → 工单闭环 → 数据回流。
 
 200 台设备同屏、约 67 DrawCall、点选耗时 < 2ms。三维不是炫技，它与后端状态强绑定、可双向交互。
 
 ![数字孪生主视图](docs/twin.png)
+
+## 界面预览
+
+| 大屏模式 | 运维工单看板 |
+| --- | --- |
+| ![大屏模式](docs/bigscreen.png) | ![工单看板](docs/workorder.png) |
+| **热力分析（温度色阶 + 历史帧回看）** | **设备详情（实时曲线 + 阈值线）** |
+| ![热力分析](docs/heatmap.png) | ![设备详情](docs/device-detail.png) |
 
 ---
 
