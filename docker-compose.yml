@@ -1,0 +1,59 @@
+# FT-Twin 依赖中间件：MySQL + EMQX（MQTT Broker）
+# 用法：
+#   docker compose up -d
+#   docker compose logs -f emqx     # 查看 MQTT 启动
+#
+# 启动后：
+#   MySQL  127.0.0.1:3306   库/账号/密码均为 fttwin
+#   MQTT   127.0.0.1:1883   （TCP，后端 paho-mqtt 用）
+#   MQTT   127.0.0.1:8083   （WebSocket，前端 mqtt.js 用）
+#   EMQX Dashboard http://127.0.0.1:18083   admin / public
+#
+# 只跑 SQLite + 浏览器模拟数据时，无需启动本文件。
+
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: ft-twin-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: fttwin
+      MYSQL_USER: fttwin
+      MYSQL_PASSWORD: fttwin
+      TZ: Asia/Shanghai
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-ufttwin", "-pfttwin"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  emqx:
+    image: emqx/emqx:5.8
+    container_name: ft-twin-emqx
+    restart: unless-stopped
+    environment:
+      EMQX_DASHBOARD__DEFAULT_USERNAME: admin
+      EMQX_DASHBOARD__DEFAULT_PASSWORD: public
+      # 允许匿名连接，便于本地演示；生产请改为密码认证
+      EMQX_ALLOW_ANONYMOUS: "true"
+      TZ: Asia/Shanghai
+    ports:
+      - "1883:1883"     # MQTT over TCP
+      - "8083:8083"     # MQTT over WebSocket
+      - "18083:18083"   # Dashboard
+    volumes:
+      - emqx-data:/opt/emqx/data
+      - emqx-log:/opt/emqx/log
+
+volumes:
+  mysql-data:
+  emqx-data:
+  emqx-log:

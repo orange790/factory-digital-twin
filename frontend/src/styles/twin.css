@@ -1,0 +1,360 @@
+/* ============ 三维场景相关样式（标注 / 悬浮 / HUD / 视图控件） ============ */
+
+.twin-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #080a0f;
+}
+
+.twin-stage canvas {
+  outline: none;
+}
+
+.twin-label-layer {
+  z-index: 2;
+}
+
+/* ---- CSS2D 标注 ---- */
+.twin-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px 3px 7px;
+  border-radius: 5px;
+  background: rgba(9, 14, 20, 0.78);
+  border: 1px solid rgba(90, 110, 135, 0.35);
+  color: #cfdae6;
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: nowrap;
+  backdrop-filter: blur(6px);
+  transform: translateY(-6px);
+  transition: opacity 0.2s;
+  pointer-events: none;
+  user-select: none;
+}
+.twin-label .tw-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--normal);
+  box-shadow: 0 0 6px currentColor;
+}
+.twin-label .tw-code {
+  font-size: 10.5px;
+  color: #8fa3b8;
+  letter-spacing: 0.03em;
+}
+.twin-label .tw-name {
+  color: #c8d5e3;
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.twin-label.is-far .tw-name {
+  display: none;
+}
+.twin-label.is-fault {
+  border-color: rgba(248, 81, 73, 0.65);
+  background: rgba(38, 10, 10, 0.85);
+  box-shadow: 0 0 14px rgba(248, 81, 73, 0.28);
+}
+.twin-label.is-fault .tw-dot {
+  background: var(--fault);
+  animation: pulse-dot 1.2s infinite;
+}
+.twin-label.is-stop .tw-dot {
+  background: var(--stop);
+}
+.twin-label.is-offline {
+  opacity: 0.55;
+}
+.twin-label.is-offline .tw-dot {
+  background: var(--offline);
+}
+
+/* ---- 悬浮提示 ---- */
+.twin-tooltip {
+  position: absolute;
+  z-index: 20;
+  min-width: 190px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: rgba(11, 16, 23, 0.94);
+  border: 1px solid rgba(88, 112, 140, 0.42);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+  transform: translate(14px, -50%);
+  backdrop-filter: blur(8px);
+}
+.twin-tooltip .tt-title {
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.twin-tooltip .tt-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px 10px;
+  font-size: 11px;
+  color: #9aa7b6;
+}
+.twin-tooltip .tt-metrics b {
+  color: #e6edf3;
+  font-family: var(--mono);
+  font-weight: 500;
+}
+
+/* ---- 场景 HUD（左上指标 / 右下操作条） ---- */
+.twin-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+.twin-overlay > * {
+  pointer-events: auto;
+}
+
+.twin-hud {
+  background: rgba(10, 15, 22, 0.82);
+  border: 1px solid rgba(70, 90, 115, 0.32);
+  border-radius: 9px;
+  backdrop-filter: blur(10px);
+  color: var(--txt-1);
+}
+
+.perf-hud {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  min-width: 186px;
+  padding: 9px 11px;
+  font-size: 11px;
+  font-family: var(--mono);
+  z-index: 8;
+}
+.perf-hud .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  line-height: 1.75;
+  color: #93a1b1;
+}
+.perf-hud .row b {
+  color: #e6edf3;
+  font-weight: 500;
+}
+.perf-hud .fps-good {
+  color: #56d364;
+}
+.perf-hud .fps-warn {
+  color: #e3b341;
+}
+.perf-hud .fps-bad {
+  color: #ff7b72;
+}
+
+/* ---- 视角预设 / 图层开关 ---- */
+.view-dock {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 7;
+}
+.view-bar {
+  display: flex;
+  gap: 4px;
+  padding: 5px;
+}
+.view-btn {
+  padding: 5px 10px;
+  font-size: 11.5px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #9aa7b6;
+  cursor: pointer;
+  transition: all 0.16s;
+  white-space: nowrap;
+}
+.view-btn:hover {
+  color: #e6edf3;
+  background: rgba(47, 129, 247, 0.14);
+}
+.view-btn.active {
+  color: #cfe3ff;
+  background: rgba(47, 129, 247, 0.22);
+  border-color: rgba(47, 129, 247, 0.45);
+}
+
+.layer-list {
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.layer-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 6px;
+  font-size: 11.5px;
+  color: #9aa7b6;
+  border-radius: 5px;
+}
+.layer-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+.layer-item .lb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---- 右侧设备抽屉 ---- */
+.twin-drawer {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  bottom: 14px;
+  width: 330px;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slide-in 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes slide-in {
+  from {
+    transform: translateX(22px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.twin-drawer .dr-hd {
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid rgba(70, 90, 115, 0.28);
+}
+.twin-drawer .dr-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 14px;
+}
+.twin-drawer .dr-ft {
+  padding: 10px 14px;
+  border-top: 1px solid rgba(70, 90, 115, 0.28);
+  display: flex;
+  gap: 8px;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.metric-cell {
+  padding: 8px 10px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(70, 90, 115, 0.22);
+}
+.metric-cell .lb {
+  font-size: 10.5px;
+  color: var(--txt-3);
+  margin-bottom: 3px;
+}
+.metric-cell .vl {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 500;
+  color: #e6edf3;
+}
+.metric-cell .vl span {
+  font-size: 10px;
+  color: var(--txt-3);
+  margin-left: 2px;
+}
+
+/* ---- 告警 toast ---- */
+.alarm-toast {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  width: 320px;
+  z-index: 12;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(248, 81, 73, 0.5);
+  background: linear-gradient(135deg, rgba(45, 12, 12, 0.96), rgba(20, 8, 10, 0.96));
+  box-shadow: 0 10px 30px rgba(248, 81, 73, 0.18);
+  animation: slide-in 0.24s ease;
+}
+.alarm-toast .at-hd {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffb3ad;
+  margin-bottom: 4px;
+}
+.alarm-toast .at-bd {
+  font-size: 11.5px;
+  color: #d9c2c0;
+  line-height: 1.5;
+}
+
+.roam-tip {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  font-size: 12px;
+  color: #cfe3ff;
+  z-index: 10;
+}
+
+/* ---- 十字光标（漫游时） ---- */
+.roam-cross {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0.7;
+}
+.roam-cross::before,
+.roam-cross::after {
+  content: '';
+  position: absolute;
+  background: #cfe3ff;
+}
+.roam-cross::before {
+  left: 7px;
+  top: 0;
+  width: 2px;
+  height: 16px;
+}
+.roam-cross::after {
+  top: 7px;
+  left: 0;
+  height: 2px;
+  width: 16px;
+}

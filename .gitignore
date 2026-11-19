@@ -1,0 +1,27 @@
+# ---------------- Python ----------------
+.venv/
+__pycache__/
+*.py[cod]
+*.sqlite3
+backend/db.sqlite3
+backend/media/
+backend/staticfiles/
+.env
+
+# ---------------- Node ----------------
+node_modules/
+frontend/dist/
+.vite/
+npm-debug.log*
+
+# ---------------- 截图 / 临时产物 ----------------
+.shots/
+*.png
+!docs/*.png
+!frontend/public/**/*.png
+
+# ---------------- 编辑器 / 系统 ----------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
